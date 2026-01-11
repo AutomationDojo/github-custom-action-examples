@@ -1,6 +1,6 @@
 {
   "name": "pr-size-checker",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "GitHub Action to automatically label PRs based on size",
   "main": "index.js",
   "scripts": {
