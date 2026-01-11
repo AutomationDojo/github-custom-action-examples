@@ -122,18 +122,32 @@ The action automatically creates the following labels:
 
 ```bash
 npm install
+npm run build
 ```
+
+### Building
+
+The action uses [@vercel/ncc](https://github.com/vercel/ncc) to compile the code and dependencies into a single file. This eliminates the need to commit `node_modules`.
+
+```bash
+npm run build
+```
+
+This creates a `dist/index.js` file that includes all dependencies bundled together.
 
 ### File Structure
 
 ```
 github-custom-action-examples/
-├── action.yml          # Action metadata
-├── index.js           # Main logic
+├── action.yml          # Action metadata (points to dist/index.js)
+├── index.js           # Main logic (source)
+├── dist/
+│   └── index.js       # Bundled code with dependencies (commit this!)
 ├── package.json       # Dependencies
 ├── README.md          # Documentation
 └── .github/
     └── workflows/
+        ├── release.yml                # Semantic Release workflow
         ├── pr-size-check.yml          # Local usage example
         └── pr-size-check-external.yml # External usage example
 ```

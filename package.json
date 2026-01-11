@@ -4,6 +4,7 @@
   "description": "GitHub Action to automatically label PRs based on size",
   "main": "index.js",
   "scripts": {
+    "build": "ncc build index.js -o dist",
     "test": "echo \"Error: no test specified\" && exit 1",
     "semantic-release": "semantic-release"
   },
@@ -24,6 +25,7 @@
     "@actions/github": "^6.0.0"
   },
   "devDependencies": {
+    "@vercel/ncc": "^0.38.1",
     "semantic-release": "^23.0.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1"
