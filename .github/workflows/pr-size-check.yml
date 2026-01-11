@@ -1,0 +1,22 @@
+name: PR Size Check
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  check-pr-size:
+    runs-on: ubuntu-latest
+    name: Check PR Size
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check PR Size
+        uses: ./
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          small-threshold: 100
+          medium-threshold: 300
+          large-threshold: 600
+          comment-on-large: true

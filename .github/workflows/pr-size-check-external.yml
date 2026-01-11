@@ -1,0 +1,22 @@
+name: PR Size Check (External Usage Example)
+
+# This is an example of how others would use your action
+# after publishing it to GitHub Marketplace
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  check-pr-size:
+    runs-on: ubuntu-latest
+    name: Check PR Size
+    steps:
+      - name: Check PR Size
+        uses: automationDojo/github-custom-action-examples@main
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          small-threshold: 100
+          medium-threshold: 300
+          large-threshold: 600
+          comment-on-large: true

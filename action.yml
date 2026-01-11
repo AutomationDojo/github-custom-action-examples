@@ -1,0 +1,38 @@
+name: 'PR Size Checker'
+description: 'Automatically labels PRs based on size and warns if they are too large'
+author: 'AutomationDojo'
+
+branding:
+  icon: 'git-pull-request'
+  color: 'blue'
+
+inputs:
+  github-token:
+    description: 'GitHub token for API calls'
+    required: true
+  small-threshold:
+    description: 'Maximum lines changed for a small PR'
+    required: false
+    default: '100'
+  medium-threshold:
+    description: 'Maximum lines changed for a medium PR'
+    required: false
+    default: '300'
+  large-threshold:
+    description: 'Maximum lines changed for a large PR'
+    required: false
+    default: '600'
+  comment-on-large:
+    description: 'Whether to comment on large PRs'
+    required: false
+    default: 'true'
+
+outputs:
+  size-label:
+    description: 'The size label applied to the PR (small, medium, large, extra-large)'
+  lines-changed:
+    description: 'Total number of lines changed (additions + deletions)'
+
+runs:
+  using: 'node20'
+  main: 'index.js'
