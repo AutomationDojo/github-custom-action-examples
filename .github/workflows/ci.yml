@@ -1,6 +1,9 @@
-name: Release
+name: Continuous Integration
 
 on:
+  pull_request:
+    branches:
+      - main
   push:
     branches:
       - main
@@ -11,15 +14,13 @@ permissions:
   pull-requests: write
 
 jobs:
-  release:
-    name: Release
+  test-action:
+    name: GitHub Actions Test
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          persist-credentials: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -30,10 +31,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build dist/
-        run: npm run build
+      - name: Run tests
+        run: npm test
 
-      - name: Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
+      - name: Test Local Action
+        uses: ./
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          small-threshold: 100
+          medium-threshold: 300
+          large-threshold: 600
