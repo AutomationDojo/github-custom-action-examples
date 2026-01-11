@@ -122,21 +122,66 @@ The action automatically creates the following labels:
 
 ```bash
 npm install
+npm run build
 ```
+
+### Building
+
+The action uses [@vercel/ncc](https://github.com/vercel/ncc) to compile the code and dependencies into a single file. This eliminates the need to commit `node_modules`.
+
+```bash
+npm run build
+```
+
+This creates a `dist/index.js` file that includes all dependencies bundled together.
 
 ### File Structure
 
 ```
 github-custom-action-examples/
-├── action.yml          # Action metadata
-├── index.js           # Main logic
+├── action.yml          # Action metadata (points to dist/index.js)
+├── index.js           # Main logic (source)
+├── dist/
+│   └── index.js       # Bundled code with dependencies (commit this!)
 ├── package.json       # Dependencies
 ├── README.md          # Documentation
 └── .github/
     └── workflows/
+        ├── release.yml                # Semantic Release workflow
         ├── pr-size-check.yml          # Local usage example
         └── pr-size-check-external.yml # External usage example
 ```
+
+## Releases and Versioning
+
+This project uses [Semantic Release](https://semantic-release.gitbook.io/) for automated versioning and releases.
+
+### Commit Message Format
+
+Follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
+
+- `feat:` - A new feature (triggers minor version bump)
+- `fix:` - A bug fix (triggers patch version bump)
+- `docs:` - Documentation changes
+- `chore:` - Maintenance tasks
+- `BREAKING CHANGE:` - Breaking changes (triggers major version bump)
+
+**Examples:**
+
+```bash
+feat: add support for custom label colors
+fix: resolve issue with label removal
+docs: update README with new examples
+chore: update dependencies
+```
+
+### How It Works
+
+1. Push commits to `main` branch using conventional commit format
+2. Semantic Release analyzes commits and determines version bump
+3. Automatically generates CHANGELOG.md
+4. Creates a GitHub release with release notes
+5. Updates version in package.json
 
 ## Contributing
 
@@ -144,7 +189,7 @@ Contributions are welcome! Please:
 
 1. Fork the repository
 2. Create a branch for your feature
-3. Commit your changes
+3. Commit your changes using conventional commit format
 4. Open a Pull Request
 
 ## License
