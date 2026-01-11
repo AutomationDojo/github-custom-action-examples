@@ -138,13 +138,44 @@ github-custom-action-examples/
         └── pr-size-check-external.yml # External usage example
 ```
 
+## Releases and Versioning
+
+This project uses [Semantic Release](https://semantic-release.gitbook.io/) for automated versioning and releases.
+
+### Commit Message Format
+
+Follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
+
+- `feat:` - A new feature (triggers minor version bump)
+- `fix:` - A bug fix (triggers patch version bump)
+- `docs:` - Documentation changes
+- `chore:` - Maintenance tasks
+- `BREAKING CHANGE:` - Breaking changes (triggers major version bump)
+
+**Examples:**
+
+```bash
+feat: add support for custom label colors
+fix: resolve issue with label removal
+docs: update README with new examples
+chore: update dependencies
+```
+
+### How It Works
+
+1. Push commits to `main` branch using conventional commit format
+2. Semantic Release analyzes commits and determines version bump
+3. Automatically generates CHANGELOG.md
+4. Creates a GitHub release with release notes
+5. Updates version in package.json
+
 ## Contributing
 
 Contributions are welcome! Please:
 
 1. Fork the repository
 2. Create a branch for your feature
-3. Commit your changes
+3. Commit your changes using conventional commit format
 4. Open a Pull Request
 
 ## License
